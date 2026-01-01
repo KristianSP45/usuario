@@ -1,11 +1,11 @@
-package com.kristian.agendador_tarefas.business.converter;
+package com.kristian.usuario.business.converter;
 
-import com.kristian.agendador_tarefas.business.DTO.EnderecoDTO;
-import com.kristian.agendador_tarefas.business.DTO.TelefoneDTO;
-import com.kristian.agendador_tarefas.business.DTO.UsuarioDTO;
-import com.kristian.agendador_tarefas.infrastructure.entity.Endereco;
-import com.kristian.agendador_tarefas.infrastructure.entity.Telefone;
-import com.kristian.agendador_tarefas.infrastructure.entity.Usuario;
+import com.kristian.usuario.business.DTO.EnderecoDTO;
+import com.kristian.usuario.business.DTO.TelefoneDTO;
+import com.kristian.usuario.business.DTO.UsuarioDTO;
+import com.kristian.usuario.infrastructure.entity.Endereco;
+import com.kristian.usuario.infrastructure.entity.Telefone;
+import com.kristian.usuario.infrastructure.entity.Usuario;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

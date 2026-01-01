@@ -1,6 +1,5 @@
-package com.kristian.agendador_tarefas.business.DTO;
+package com.kristian.usuario.business.DTO;
 
-import jakarta.persistence.Column;
 import lombok.*;
 
 @Getter

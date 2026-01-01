@@ -1,4 +1,4 @@
-package com.kristian.agendador_tarefas.infrastructure.security;
+package com.kristian.usuario.infrastructure.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

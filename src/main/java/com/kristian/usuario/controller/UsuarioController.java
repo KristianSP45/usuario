@@ -1,10 +1,10 @@
-package com.kristian.agendador_tarefas.controller;
+package com.kristian.usuario.controller;
 
-import com.kristian.agendador_tarefas.business.DTO.EnderecoDTO;
-import com.kristian.agendador_tarefas.business.DTO.TelefoneDTO;
-import com.kristian.agendador_tarefas.business.DTO.UsuarioDTO;
-import com.kristian.agendador_tarefas.business.UsuarioService;
-import com.kristian.agendador_tarefas.infrastructure.security.JwtUtil;
+import com.kristian.usuario.business.DTO.EnderecoDTO;
+import com.kristian.usuario.business.DTO.TelefoneDTO;
+import com.kristian.usuario.business.DTO.UsuarioDTO;
+import com.kristian.usuario.business.UsuarioService;
+import com.kristian.usuario.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

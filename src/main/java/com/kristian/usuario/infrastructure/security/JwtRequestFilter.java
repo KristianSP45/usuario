@@ -1,4 +1,4 @@
-package com.kristian.agendador_tarefas.infrastructure.security;
+package com.kristian.usuario.infrastructure.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

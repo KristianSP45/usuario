@@ -1,4 +1,4 @@
-package com.kristian.agendador_tarefas.infrastructure.entity;
+package com.kristian.usuario.infrastructure.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
