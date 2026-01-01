@@ -1,7 +1,7 @@
-package com.kristian.agendador_tarefas.infrastructure.security;
+package com.kristian.usuario.infrastructure.security;
 
-import com.kristian.agendador_tarefas.infrastructure.entity.Usuario;
-import com.kristian.agendador_tarefas.infrastructure.repository.UsuarioRepository;
+import com.kristian.usuario.infrastructure.entity.Usuario;
+import com.kristian.usuario.infrastructure.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

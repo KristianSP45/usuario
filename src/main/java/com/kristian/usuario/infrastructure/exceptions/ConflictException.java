@@ -1,4 +1,4 @@
-package com.kristian.agendador_tarefas.infrastructure.exceptions;
+package com.kristian.usuario.infrastructure.exceptions;
 
 public class ConflictException extends  RuntimeException{
     public  ConflictException(String mensagem){

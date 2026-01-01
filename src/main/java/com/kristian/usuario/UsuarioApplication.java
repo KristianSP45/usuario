@@ -1,13 +1,13 @@
-package com.kristian.agendador_tarefas;
+package com.kristian.usuario;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AgendadorTarefasApplication {
+public class UsuarioApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AgendadorTarefasApplication.class, args);
+		SpringApplication.run(UsuarioApplication.class, args);
 	}
 
 }

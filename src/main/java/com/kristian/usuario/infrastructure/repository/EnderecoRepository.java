@@ -1,6 +1,6 @@
-package com.kristian.agendador_tarefas.infrastructure.repository;
+package com.kristian.usuario.infrastructure.repository;
 
-import com.kristian.agendador_tarefas.infrastructure.entity.Endereco;
+import com.kristian.usuario.infrastructure.entity.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
