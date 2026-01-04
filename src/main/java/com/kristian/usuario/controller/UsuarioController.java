@@ -1,8 +1,8 @@
 package com.kristian.usuario.controller;
 
-import com.kristian.usuario.business.DTO.EnderecoDTO;
-import com.kristian.usuario.business.DTO.TelefoneDTO;
-import com.kristian.usuario.business.DTO.UsuarioDTO;
+import com.kristian.usuario.business.dto.EnderecoDTO;
+import com.kristian.usuario.business.dto.TelefoneDTO;
+import com.kristian.usuario.business.dto.UsuarioDTO;
 import com.kristian.usuario.business.UsuarioService;
 import com.kristian.usuario.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
