@@ -1,4 +1,4 @@
-package com.kristian.usuario.business.DTO;
+package com.kristian.usuario.business.dto;
 
 import lombok.*;
 
