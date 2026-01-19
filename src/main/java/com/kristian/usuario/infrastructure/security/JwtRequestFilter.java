@@ -14,6 +14,9 @@ import java.io.IOException;
 
 // Define a classe JwtRequestFilter, que estende OncePerRequestFilter
 public class JwtRequestFilter extends OncePerRequestFilter {
+    //JwtRequestFilter = Um porteiro que fica na porta da API, olhando TODA requisição
+    //e decidindo se o usuário está autenticado ou não.
+    //extends OncePerRequestFilter = Esse código roda toda vez que alguém faz uma requisição na API
 
     // Define propriedades para armazenar instâncias de JwtUtil e UserDetailsService
     private final JwtUtil jwtUtil;
@@ -59,3 +62,5 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 }
+// Filtro responsável por interceptar requisições,
+// validar o JWT e autenticar o usuário no contexto do Spring Security

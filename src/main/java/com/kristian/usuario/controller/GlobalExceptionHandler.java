@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@ControllerAdvice
-public class GlobalExceptionHandler {
+@ControllerAdvice//Pense assim: É um “controller invisível” só para erros
+public class GlobalExceptionHandler {//“O GlobalExceptionHandler centraliza o tratamento de exceções da aplicação,
+    // garantindo respostas HTTP consistentes e organizadas.”
 
     @ExceptionHandler(ResourceNotFoundException.class)
+    //Significa literalmente:“Quando essa exceção acontecer, usa ESTE método para responder”
     public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex){
         return  new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }

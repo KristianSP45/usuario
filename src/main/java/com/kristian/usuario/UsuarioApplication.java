@@ -11,4 +11,8 @@ public class UsuarioApplication {
 	}
 
 }
-//Teste
+//Só JwtUtil e UserDetailsServiceImpl usam @Service?
+//✔ Correto.
+//JwtRequestFilter → é filtro, não service
+//SecurityConfig → é configuração (@Configuration)
+//UserDetailsServiceImpl → regra de negócio de auth

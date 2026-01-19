@@ -9,12 +9,16 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
-@Service
-public class JwtUtil {
+@Service//Diz ao Spring: “Essa classe pode ser injetada em outras”
+// obs: Poderia ser @Component, mas é melhor esse @...
+
+public class JwtUtil {// JwtUtil é responsável por gerar, extrair e validar tokens JWT,
+// sendo usado no processo de autenticação via Spring Security
 
     // Chave secreta usada para assinar e verificar tokens JWT
     private final String secretKey = "sua-chave-secreta-super-segura-que-deve-ser-bem-longa";
-
+    //Pensa assim: Quem tem essa chave > consegue criar token
+    //Quem não tem > não consegue falsificar
 
 
     // Gera um token JWT com o nome de usuário e validade de 1 hora
@@ -22,15 +26,23 @@ public class JwtUtil {
         return Jwts.builder()
                 .setSubject(username) // Define o nome de usuário como o assunto do token
                 .setIssuedAt(new Date()) // Define a data e hora de emissão do token
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // Define a data e hora de expiração (1 hora a partir da emissão)
-                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS256) // Converte a chave secreta em bytes e assina o token com ela
+
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                // Define a data e hora de expiração (1 hora a partir da emissão)
+
+                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS256)
+                // Converte a chave secreta em bytes e assina o token com ela, impossibilitando falsificação
+
                 .compact(); // Constrói o token JWT
     }
 
     // Extrai as claims do token JWT (informações adicionais do token)
     public Claims extractClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8))) // Define a chave secreta para validar a assinatura do token
+
+                .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)))
+                // Define a chave secreta para validar a assinatura do token
+
                 .build()
                 .parseClaimsJws(token) // Analisa o token JWT e obtém as claims
                 .getBody(); // Retorna o corpo das claims

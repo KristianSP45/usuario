@@ -1,46 +1,72 @@
+//O build.gradle define quais tecnologias existem no projeto,
+// não como elas são usadas. O uso acontece nas classes.
+
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.5.9'
-	id 'io.spring.dependency-management' version '1.1.7'
+	id 'java'//Ativa o projeto Java padrão. Permite compilar .java, rodar testes, etc.
+	id 'org.springframework.boot' version '3.5.9'//Transforma o projeto em Spring Boot
+	id 'io.spring.dependency-management' version '1.1.7'//Gerencia versões automaticamente
 }
 
-group = 'com.kristian'
-version = '0.0.1-SNAPSHOT'
-description = 'Demo project for Spring Boot'
+group = 'com.kristian'//group > pacote base (ex: com.kristian.usuario)
+version = '0.0.1-SNAPSHOT'//version > versão do artefato. SNAPSHOT > versão em desenvolvimento
+description = 'Demo project for Spring Boot'//
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+		languageVersion = JavaLanguageVersion.of(21)//Garante que o projeto rode com Java 21
 	}
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
+	compileOnly {//compileOnly > Lombok não vai pro jar
+		extendsFrom annotationProcessor//annotationProcessor > só gera código em tempo de compilação
 	}
 }
 
-repositories {
+repositories {//Onde o Gradle busca dependências
 	mavenCentral()
 }
 
-dependencies {
+dependencies {//Dependências (parte mais importante)
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//JPA + Hibernate
+	//@Entity, @Repository, @Transactional
+	//Conversa com o banco
+
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//Tudo do Spring Security
+	//UserDetails, AuthenticationManager, filtros, etc
+
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//API REST
+	//@RestController, @RequestMapping
+	//Jackson (JSON)
+
+	//JWT
 	implementation("io.jsonwebtoken:jjwt-api:0.13.0")
+	//jjwt-api > interfaces
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.13.0")
+	//jjwt-impl > implementação real
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.13.0")
+	//jjwt-jackson → JSON ↔ JWT
 
-	compileOnly 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok'//Lombok
+
 	runtimeOnly 'org.postgresql:postgresql'
+	//Driver JDBC
 
-	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'//Lombok
+
+	//Testes
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	//Testes unitários
+	//Mock de autenticação (@WithMockUser)
+	//JUnit 5
 }
 
+//Test task
 tasks.named('test') {
-	useJUnitPlatform()
+	useJUnitPlatform()//Diz ao Gradle: Use JUnit 5
 }

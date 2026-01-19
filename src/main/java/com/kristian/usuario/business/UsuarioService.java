@@ -17,8 +17,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
+@Service// diz ao Spring: “essa classe tem regra de negócio”
+@RequiredArgsConstructor// gera o construtor com os final
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
@@ -31,7 +31,17 @@ public class UsuarioService {
     public UsuarioDTO salvarUsuario(UsuarioDTO usuarioDTO){
         emailExiste(usuarioDTO.getEmail());
         usuarioDTO.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
+        //passwordEncoder.encode = Criptografa a senha
         Usuario usuario = usuarioConverter.paraUsuario(usuarioDTO);
+        //Sem Converter (o caos)
+        //Usuario usuario = new Usuario();
+        //usuario.setNome(dto.getNome());
+        //usuario.setEmail(dto.getEmail());
+        //usuario.setSenha(dto.getSenha());
+        //
+        //Com Converter (o certo)
+        //Usuario usuario = usuarioConverter.paraUsuario(usuarioDTO);
+        //“Converter, transforma esse DTO em Entity pra mim.”
 
 
         return usuarioConverter.paraUsuarioDTO(usuarioRepository.save(usuario));
@@ -72,7 +82,8 @@ public class UsuarioService {
 
     public UsuarioDTO atualizaDadosUsuario(String token, UsuarioDTO dto){
         //Aqui buscamos o email do usuario atraves do token (tirar a obrigatoriedade do email)
-        String email = jwtUtil.extractUsername(token.substring(7));
+        String email = jwtUtil.extractUsername(token.substring(7));// Extrai email do token.
+        // token.substring(7) = Ele ignora os primeiros 7 caracteres da string em java
 
         //Criptografia de senha
         dto.setSenha(dto.getSenha() !=null ? passwordEncoder.encode(dto.getSenha()) : null );

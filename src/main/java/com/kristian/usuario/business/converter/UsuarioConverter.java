@@ -11,11 +11,17 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Component//@Component = “Spring, essa classe existe e você pode injetar”
+//@Component é de uso generico, ex: @Service é proprio para service, e @Component seria para classes auxiliares
+//Se a classe precisa ser injetada e não é Controller, Service ou Repository → use @Component.
 public class UsuarioConverter {
 
-    public Usuario paraUsuario(UsuarioDTO usuarioDTO){
-        return Usuario.builder()
+    //DTO para Entity
+
+    public Usuario paraUsuario(UsuarioDTO usuarioDTO){// Usado quando:
+        // chegou JSON, virou DTO, precisa virar Entity para salvar no banco
+        return Usuario.builder()//Builder (por quê?):
+                // Evita construtor gigante, deixa claro o que está sendo setado, muito usado com JPA + Lombok
                 .nome(usuarioDTO.getNome())
                 .email(usuarioDTO.getEmail())
                 .senha(usuarioDTO.getSenha())
@@ -27,10 +33,11 @@ public class UsuarioConverter {
                 .build();
     }
 
-    public List<Endereco> paraListaEndereco(List<EnderecoDTO> enderecoDTOS){
-        List<Endereco> enderecos = new ArrayList<>();
+    //paraListaEndereco() → converte muitos
+    public List<Endereco> paraListaEndereco(List<EnderecoDTO> enderecoDTOS){//enderecoDTOS > lista original
+        List<Endereco> enderecos = new ArrayList<>();//Nova lista
 
-        for (EnderecoDTO enderecoDTO : enderecoDTOS){
+        for (EnderecoDTO enderecoDTO : enderecoDTOS){//EnderecoDTO > tipo / enderecoDTO > variável temporária
             enderecos.add(paraEndereco(enderecoDTO));
         }
         return enderecos;
@@ -38,6 +45,7 @@ public class UsuarioConverter {
         //OU (Forma mais avançada)  return enderecoDTOS.stream().map(this::paraEndereco).toList();
     }
 
+    //paraEndereco() → converte um
     public Endereco paraEndereco(EnderecoDTO enderecoDTO){
         return Endereco.builder()
                 .rua(enderecoDTO.getRua())
@@ -51,7 +59,8 @@ public class UsuarioConverter {
     }
 
     public List<Telefone> paraListaTelefone(List<TelefoneDTO> telefoneDTOS){
-        return  telefoneDTOS.stream().map(this::paraTelefone).toList();
+        return  telefoneDTOS.stream().map(this::paraTelefone).toList();//Telefones com Stream:
+        // Mesma coisa do for, só mais elegante. Conceito é o mesmo: DTO > Entity
     }
 
     public Telefone paraTelefone(TelefoneDTO telefoneDTO){
@@ -63,9 +72,12 @@ public class UsuarioConverter {
                 .build();
     }
 
+    //FIM
     //---------------------------------------------------------------
+    //Entity para DTO
 
-    public UsuarioDTO paraUsuarioDTO(Usuario usuarioDTO){
+    public UsuarioDTO paraUsuarioDTO(Usuario usuarioDTO){//Usado quando:
+        // Banco devolveu Entity, precisa responder a API
         return UsuarioDTO.builder()
                 .nome(usuarioDTO.getNome())
                 .email(usuarioDTO.getEmail())
@@ -89,7 +101,8 @@ public class UsuarioConverter {
 
     public EnderecoDTO paraEnderecoDTO(Endereco endereco){
         return EnderecoDTO.builder()
-                .id(endereco.getId())
+                .id(endereco.getId())//Agora o ID aparece. Porque agora estamos retornando, não salvando
+                // e porque precisa saber qual o endereço e telefone vai ser usado
                 .rua(endereco.getRua())
                 .numero(endereco.getNumero())
                 .cidade(endereco.getCidade())
@@ -113,11 +126,13 @@ public class UsuarioConverter {
                 .build();
     }
 
+    //FIM
     //------------------------------------------------------
 
     public Usuario updateUsuario(UsuarioDTO usuarioDTO, Usuario entity){
         return Usuario.builder()
                 .nome(usuarioDTO.getNome() !=null ? usuarioDTO.getNome() : entity.getNome())
+        //“Se o DTO trouxe esse campo, usa ele. Se não trouxe, mantém o do banco.”
                 .id(entity.getId())
                 .senha(usuarioDTO.getSenha() !=null ? usuarioDTO.getSenha() : entity.getSenha())
                 .email(usuarioDTO.getEmail() !=null ? usuarioDTO.getEmail() : entity.getEmail())
@@ -158,6 +173,7 @@ public class UsuarioConverter {
                 .estado(dto.getEstado())
                 .cep(dto.getCep())
                 .usuario_id(idUsuario)
+                //O DTO não sabe quem é o usuário. O Service sabe (via token)
 
                 .build();
     }
