@@ -1,10 +1,15 @@
 package com.kristian.usuario.controller;
 
 import com.kristian.usuario.business.UsuarioService;
+import com.kristian.usuario.business.ViaCepService;
 import com.kristian.usuario.business.dto.EnderecoDTO;
 import com.kristian.usuario.business.dto.TelefoneDTO;
 import com.kristian.usuario.business.dto.UsuarioDTO;
+import com.kristian.usuario.infrastructure.clients.ViaCepDTO;
 import com.kristian.usuario.infrastructure.security.JwtUtil;
+import com.kristian.usuario.infrastructure.security.SecurityConfig;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,12 +20,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController //diz que é controller E diz que responde JSON
 @RequestMapping("/usuario")//Prefixo da API, todos os endpoints começam com: /usuario
 @RequiredArgsConstructor //@RequiredArgsConstructor = “Spring, usa esse construtor pra injetar”
+@Tag(name = "Usuarios", description = "Cadastra usuários")
+@SecurityRequirement(name = SecurityConfig.SECURITY_SCHEME)
 public class UsuarioController {
 
     private final UsuarioService usuarioService;//“cria um construtor com final, que seria fixo,
     // e traz o UsuarioService para esse construtor”
     private final AuthenticationManager authenticationManager;//final = “isso é obrigatório”
     private final JwtUtil jwtUtil;
+    private final ViaCepService viaCepService;
 
     @PostMapping//Não somente esse,mas a informação se aplica aos outros verbos HTTP.
     // Ele informa DUAS coisas: verbo HTTP = GET E rota = /teste, os dois juntos = @GetMapping("/teste")
@@ -84,5 +92,10 @@ public class UsuarioController {
     public  ResponseEntity<TelefoneDTO> cadastraTelefone(@RequestBody TelefoneDTO dto,
                                                          @RequestHeader("Authorization") String token){
         return ResponseEntity.ok(usuarioService.cadastraTelefone(token, dto));
+    }
+
+    @GetMapping("/endereco/{cep}")
+    public  ResponseEntity<ViaCepDTO> buscarDadosCep(@PathVariable("cep") String cep){
+        return ResponseEntity.ok(viaCepService.buscarDadosEndereco(cep));
     }
 }
