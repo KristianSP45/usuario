@@ -6,15 +6,11 @@ import com.kristian.usuario.business.dto.EnderecoDTO;
 import com.kristian.usuario.business.dto.TelefoneDTO;
 import com.kristian.usuario.business.dto.UsuarioDTO;
 import com.kristian.usuario.infrastructure.clients.ViaCepDTO;
-import com.kristian.usuario.infrastructure.security.JwtUtil;
 import com.kristian.usuario.infrastructure.security.SecurityConfig;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController //diz que é controller E diz que responde JSON
@@ -26,9 +22,7 @@ public class UsuarioController {
 
     private final UsuarioService usuarioService;//“cria um construtor com final, que seria fixo,
     // e traz o UsuarioService para esse construtor”
-    private final AuthenticationManager authenticationManager;//final = “isso é obrigatório”
-    private final JwtUtil jwtUtil;
-    private final ViaCepService viaCepService;
+    private final ViaCepService viaCepService;//final = “isso é obrigatório”
 
     @PostMapping//Não somente esse,mas a informação se aplica aos outros verbos HTTP.
     // Ele informa DUAS coisas: verbo HTTP = GET E rota = /teste, os dois juntos = @GetMapping("/teste")
@@ -39,12 +33,9 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody UsuarioDTO usuarioDTO){//@RequestBody = corpo da requisição
+    public ResponseEntity<String> login(@RequestBody UsuarioDTO usuarioDTO){//@RequestBody = corpo da requisição
         // “Spring, o corpo da requisição vem em JSON, transforma isso em UsuarioDTO.”
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(usuarioDTO.getEmail(),usuarioDTO.getSenha())
-        );
-        return "Bearer "+jwtUtil.generateToken(authentication.getName());
+        return ResponseEntity.ok(usuarioService.autenticarUsuario(usuarioDTO));
     }
 
     @GetMapping
