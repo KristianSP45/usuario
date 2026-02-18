@@ -5,6 +5,7 @@ plugins {
 	id 'java'//Ativa o projeto Java padrão. Permite compilar .java, rodar testes, etc.
 	id 'org.springframework.boot' version '3.5.9'//Transforma o projeto em Spring Boot
 	id 'io.spring.dependency-management' version '1.1.7'//Gerencia versões automaticamente
+	id "org.sonarqube" version "4.4.1.3373"
 }
 
 group = 'com.kristian'//group > pacote base (ex: com.kristian.usuario)
@@ -83,4 +84,15 @@ dependencyManagement {
 //Test task
 tasks.named('test') {
 	useJUnitPlatform()//Diz ao Gradle: Use JUnit 5
+}
+
+// Configurações do SonarQube para análise estática do projeto.
+// Aqui definimos o identificador do projeto, a URL do servidor Sonar
+// e o token de autenticação (não deve ser o token real no Git).
+sonarqube {
+	properties {
+		property "sonar.projectKey", "usuario"
+		property "sonar.host.url", "http://localhost:9000"
+		property "sonar.login", "digite_token_sonarqube"
+	}
 }
