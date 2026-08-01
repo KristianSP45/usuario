@@ -36,26 +36,26 @@ Este serviço faz parte do ecossistema **Agendador de Tarefas**, sendo responsá
 
 | Método | Endpoint              | Descrição                              |
 | ------ | --------------------- | -------------------------------------- |
-| POST   | `/user`               | Cadastrar usuário                      |
-| POST   | `/user/login`         | Autenticar usuário e gerar token JWT   |
-| GET    | `/user?email={email}` | Buscar usuário por e-mail              |
-| PUT    | `/user`               | Atualizar dados do usuário autenticado |
-| DELETE | `/user/{email}`       | Remover usuário pelo e-mail            |
+| POST   | `/usuario`               | Cadastrar usuário                      |
+| POST   | `/usuario/login`         | Autenticar usuário e gerar token JWT   |
+| GET    | `/usuario?email={email}` | Buscar usuário por e-mail              |
+| PUT    | `/usuario`               | Atualizar dados do usuário autenticado |
+| DELETE | `/usuario/{email}`       | Remover usuário pelo e-mail            |
 
 ### Endereços
 
 | Método | Endpoint                 | Descrição                                     |
 | ------ | ------------------------ | --------------------------------------------- |
-| POST   | `/user/endereco`         | Cadastrar endereço para o usuário autenticado |
-| PUT    | `/user/endereco?id={id}` | Atualizar endereço                            |
-| GET    | `/user/endereco/{cep}`   | Consultar endereço na API ViaCEP              |
+| POST   | `/usuario/endereco`         | Cadastrar endereço para o usuário autenticado |
+| PUT    | `/usuario/endereco?id={id}` | Atualizar endereço                            |
+| GET    | `/usuario/endereco/{cep}`   | Consultar endereço na API ViaCEP              |
 
 ### Telefones
 
 | Método | Endpoint                 | Descrição                                     |
 | ------ | ------------------------ | --------------------------------------------- |
-| POST   | `/user/telefone`         | Cadastrar telefone para o usuário autenticado |
-| PUT    | `/user/telefone?id={id}` | Atualizar telefone                            |
+| POST   | `/usuario/telefone`         | Cadastrar telefone para o usuário autenticado |
+| PUT    | `/usuario/telefone?id={id}` | Atualizar telefone                            |
 
 ### Exemplo de login
 
@@ -85,7 +85,7 @@ A aplicação possui integração com a **API ViaCEP** para consulta automática
 ### Exemplo
 
 ```http
-GET /user/endereco/72110200
+GET /usuario/endereco/72110200
 ```
 
 ## Regras de negócio
